@@ -1,12 +1,12 @@
 import Project from "../models/project.js"
 
 export const getAll = async (req, res) => {
-    let list = await Project.find()
+    let list = await Project.find().populate('image')
     res.status(200).json(list)
 }
 
 export const getOne = async (req, res) => {
-    let project = await Project.findById(req.params.id)
+    let project = await Project.findById(req.params.id).populate('image')
     res.status(200).json(project)
 }
 

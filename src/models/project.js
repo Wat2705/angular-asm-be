@@ -19,6 +19,10 @@ const ProjectSchema = new mongoose.Schema({
     },
     description: {
         type: String
+    },
+    image: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'image',
     }
 })
 
