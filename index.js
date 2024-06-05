@@ -16,7 +16,6 @@ const storage = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: function (req, file, cb) {
-        console.log(file)
         cb(null, file.originalname)
     }
 })
@@ -37,12 +36,12 @@ app.use(cors())
 app.use('/uploads', express.static(path.join(__dirname, './uploads')))
 app.use('/project', projectRouter)
 app.post('/image', upload.single('image'), async (req, res) => {
-    console.log(req.file)
     let existImage = await Image.findOne({ name: req.file.filename });
     if (existImage == null) {
         let data = await Image.create({
             name: req.file.filename,
-            path: req.file.path
+            path: req.file.path,
+            type: req.file.mimetype
         })
         res.status(200).json({ id: data._id })
     } else res.status(200).json({ id: existImage._id })
