@@ -7,6 +7,7 @@ import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import Image from './src/models/image.js'
 import projectRouter from './src/routers/project.js'
+import userRouter from './src/routers/user.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -35,6 +36,7 @@ app.use(express.json())
 app.use(cors())
 app.use('/uploads', express.static(path.join(__dirname, './uploads')))
 app.use('/project', projectRouter)
+app.use('/user', userRouter)
 app.post('/image', upload.single('image'), async (req, res) => {
     let existImage = await Image.findOne({ name: req.file.filename });
     if (existImage == null) {
