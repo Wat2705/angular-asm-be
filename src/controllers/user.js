@@ -34,3 +34,8 @@ export const logIn = async (req, res) => {
         })
     } else res.status(400).json({ message: 'Tài khoản hoặc mật khẩu không tồn tại!' })
 }
+
+export const getAllDev = async (req, res) => {
+    const list = await user.find({ role: 'dev' })
+    res.status(200).json(list)
+}
